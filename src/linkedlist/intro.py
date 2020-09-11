@@ -9,13 +9,15 @@ Linked List
 - insertion and deletion is hard in array as shifting required.
 
 * advantages:
-- dynamic insertion and deletion allowed and
+- dynamic insertion and deletion allowed
+Memory is assigned at compile time in array while in inked list it is assigned at run time
 - only the required space is taken.
 
 * disadvantage:
 - random access as in array not allowed,
 accessing any element takes theta(i), where i represents the position of element in linked list.
-- extra space needed in each elemnt to store the next address.
+- extra space needed in each element to store the next address.
+- poor cache locality as nodes are stored scattered in memory.
 
 * types:
 1. Singly
