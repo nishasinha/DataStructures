@@ -66,6 +66,63 @@ class LinkedList:
     def delete_list(self):
         self.head = None
 
+    def count(self):
+        current = self.head
+        count = 0
+        while current:
+            count = count + 1
+            current = current.next
+        print("Linked list has {} elements.".format(count))
+
+    def count_recursive(self):
+        print("Linked list has {} elements.".format(self._get_count_rec(self.head)))
+
+    def _get_count_rec(self, node):
+        if node is None:
+            return 0
+        return 1 + self._get_count_rec(node.next)
+
+    def search(self, item):
+        current = self.head
+        while current:
+            if current.data == item:
+                print("Found {} in linked list".format(item))
+                return True
+            current = current.next
+
+        print("Not Found {} in linked list".format(item))
+        return False
+
+    def search_recursive(self, item):
+        found = self._search_rec(item, self.head, found=False)
+        if not found:
+            print("Not Found rec {} in linked list".format(item))
+
+        return found
+
+    def _search_rec(self, item, node, found):
+        if node is None:
+            return found
+
+        if node.data == item:
+            print("Found rec {} in linked list".format(item))
+            return True
+
+        return found or self._search_rec(item, node.next, found)
+
+    def middle(self):
+        if not self.head:
+            print("Empty list")
+
+        slow = self.head
+        fast = self.head
+        while fast.next and fast.next.next:
+            print("Pointers at slow {}, fast {}".format(slow.data, fast.data))
+            fast = fast.next.next
+            slow = slow.next
+
+        print("Middle is at {}.\n".format(slow.data))
+
 
 if __name__ == '__main__':
     ll = LinkedList()
@@ -92,6 +149,28 @@ if __name__ == '__main__':
 
     ll.insert(0)
     ll.print_list()
+
+    print("\nCount")
+    ll.print_list()
+    ll.count()
+
+    ll.count_recursive()
+
+    print("\nSearch")
+    ll.print_list()
+    ll.search(1)
+    ll.search(9)
+
+    ll.search_recursive(1)
+    ll.search_recursive(11)
+
+    print("\nFind middle of inked list")
+    ll.print_list()
+    ll.middle()
+
+    ll.insert(10)
+    ll.print_list()
+    ll.middle()
 
     print("\nDeletion in linked list")
     ll.delete(0)
