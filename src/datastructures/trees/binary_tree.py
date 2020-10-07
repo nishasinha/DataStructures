@@ -1,105 +1,146 @@
 """
-* Binary Tree
-a hierarchical data structure,
-can either be empty or have nodes such that each node has:
-- a data value
-- a link to left binary tree
-- a link to right binary tree
+Insertion in a Binary Tree in level order.
+- Given a binary tree and a key, insert the key into the binary tree at the first position available in level order.
 
 
-* Why?
-- maintain sorted list of items with frequent inserts and deletes:
-search/ access faster than linked list
-insertion/ deletion faster than array
-
-- problems which have hierarchical nature eg:
-filesystem,
-business chess,
-router algorithms
-
-* Time:
-search, insert, delete - O(n)
-
-* Traversal:
-Breadth First = Level Order
-Depth First = In order (LNR), Pre order (NLR), Post order (LRN)
-
+Deletion in a Binary Tree
+- Given a binary tree, delete a node from it by making sure that tree shrinks from the bottom
+(i.e. the deleted node is replaced by bottom most and rightmost node).
 """
+
+from collections import deque
 
 
 class Node:
-    def __init__(self, key):
-        self.data = key
-        self.left = None
-        self.right = None
+    def __init__(self, data):
+        self.data = data
+        self.left = self.right = None
+
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    def insert_level_oder(self, item):
+        new_node = Node(item)
+
+        if not self.root:
+            self.root = new_node
+            return
+
+        q = deque()
+        q.append(self.root)
+        while len(q):
+            temp = q.popleft()
+
+            if not temp.left:
+                temp.left = new_node
+                return
+            else:
+                q.append(temp.left)
+
+            if not temp.right:
+                temp.right = new_node
+                return
+            else:
+                q.append(temp.right)
+
+    def print_level_order(self):
+        if self.root is None:
+            print("Tree is empty!")
+            return
+
+        q = deque()
+        q.append(self.root)
+
+        while len(q):
+            temp = q.popleft()
+            print(temp.data, end="->")
+
+            if temp.left:
+                q.append(temp.left)
+            if temp.right:
+                q.append(temp.right)
+        print("DONE")
+
+    def _delete_node(self, last_node):
+        if not self.root:
+            return
+
+        q = deque()
+        q.append(self.root)
+        while len(q):
+            temp = q.popleft()
+
+            if temp.left and temp.left is last_node:
+                temp.left = None
+                return
+            else:
+                q.append(temp.left)
+
+            if temp.right and temp.right is last_node:
+                temp.right = None
+                return
+            else:
+                q.append(temp.right)
+
+    def delete(self, item):
+        if not self.root:
+            print("Underflow!")
+            return
+
+        # Find last node, replace data with key node, delete last node
+        q = deque()
+        q.append(self.root)
+
+        node_to_delete = None
+        last_node = None
+        while len(q):
+            temp = q.popleft()
+
+            if temp.data == item:
+                node_to_delete = temp
+
+            if temp.left:
+                q.append(temp.left)
+            if temp.right:
+                q.append(temp.right)
+
+            last_node = temp
+
+        if node_to_delete:
+            print("Found the node to delete.")
+            print("Replacing node {} with {}".format(node_to_delete.data, last_node.data))
+            self._delete_node(last_node)
+            node_to_delete.data = last_node.data
+        else:
+            print("Not Found the node to delete.")
 
 
 if __name__ == '__main__':
-    print("Binary tree")
-    root = Node(1)
-    root.left = Node(2)
-    root.right = Node(3)
-    root.left.left = Node(4)
+    print("Binary Tree")
+    tree = BinaryTree()
+    tree.print_level_order()
 
-    print(root)
+    tree.insert_level_oder(1)
+    tree.print_level_order()
 
+    tree.insert_level_oder(2)
+    tree.insert_level_oder(3)
+    tree.insert_level_oder(4)
+    tree.print_level_order()
 
-"""
-Properties:
-1. Level of root = 0.
-2. Height of root = 1.
+    tree.root.right = None
+    tree.print_level_order()
 
-3. Maximum number of nodes at level l = (2 ** l)
+    tree.insert_level_oder(5)
+    tree.print_level_order()
 
-level = 0, max nodes = 2 ** 0 = 1
-level = 1, max nodes = 2 ** 1 = 2
-level = 2, max nodes = 2 ** 2 = 4
+    tree.insert_level_oder(6)
+    tree.insert_level_oder(7)
+    tree.print_level_order()
 
-4. Maximum number of nodes in tree of height h = (2 ** h - 1)
-
-height = 1, max nodes = 1 (2 ** 1 -1)
-height = 2, max nodes = 3 (2 ** 2 -1)
-height = 3, max nodes = 1+2+4 = 7 = (2**3 -1)
-
-5. In 'n' nodes' tree, maximum height = log2 (n+1)
-
-n = 1, height = log2 (1+1) =  1
-
-6. In tree with 'l' leaves, max level = log2(l) + 1
-
-7.In tree which has 0 or 2 children only,
-number of leaf nodes = number of nodes with 2 children + 1
-
-* Handshaking lemma may be used to prove this.
-"""
-
-
-"""
-Binary Tree Types:
-1. Full
-Binary tree in which every node has 2 or 0 children.
- Nodes with 0 children are leaf nodes. 
- All other nodes have 2 children.
-
-Number of leaf = Number of internal nodes + 1 
-
-2. Complete
-Binary tree in which all levels are full and the last level has leaf nodes which are as left as possible.
-Eg: Binary Heap
-
-3. Perfect
-Binary tree in which all levels are full including the last level, 
- ie complete binary tree with last level full.
- nodes = 2**h -1
-Eg: Family tree
-
-4. Balanced
-Binary tree which maintains its height at O(log2 n), n is number of nodes.
-Used for efficient search, inserts or deletes task.
-Eg: 
-AVL (difference in height of left and right subtrees is 1)
-Red Black (no red nodes are adjacent, number of black nodes in all root to leaf path is same)
-
-5. Pathological/ Degenerate tree = linked list.
-
-"""
+    tree.delete(5)
+    tree.print_level_order()
+    tree.delete(10)
+    tree.print_level_order()
