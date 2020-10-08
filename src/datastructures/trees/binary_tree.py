@@ -116,6 +116,35 @@ class BinaryTree:
         else:
             print("Not Found the node to delete.")
 
+    # def _inorder(self, node):
+
+    def print_in_order(self, node):
+        # LNR
+        if not node:
+            return
+
+        self.print_in_order(node.left)
+        print(node.data, end=" ")
+        self.print_in_order(node.right)
+
+    def print_post_order(self):
+        if not self.root:
+            print("Tree is empty!")
+            return
+
+        # LRN
+        print("Post order traversal")
+        self._post_order(self.root)
+        print("DONE")
+
+    def _post_order(self, node):
+        if not node:
+            return
+
+        self._post_order(node.left)
+        self._post_order(node.right)
+        print(node.data, end="->")
+
 
 if __name__ == '__main__':
     print("Binary Tree")
@@ -144,3 +173,6 @@ if __name__ == '__main__':
     tree.print_level_order()
     tree.delete(10)
     tree.print_level_order()
+
+    tree.print_in_order(tree.root)
+    tree.print_post_order()
