@@ -24,6 +24,14 @@ search, insert, delete - O(n)
 Breadth First = Level Order
 Depth First = In order (LNR), Pre order (NLR), Post order (LRN)
 
+* Representation
+1. via pointers
+2. via array
+In array if the index starts from 1 to n, n being the number nodes.
+then if p = parent's index
+left child index = 2*p
+right child index = 2*p + 1
+
 """
 
 
