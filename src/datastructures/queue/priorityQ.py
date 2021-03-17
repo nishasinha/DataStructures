@@ -72,7 +72,9 @@ if __name__ == "__main__":
     pq.print_q()
 
     pq.enqueue('c')
+    pq.print_q()
     pq.enqueue('x')
+    pq.print_q()
     pq.enqueue('d')
     pq.print_q()
 
@@ -85,3 +87,8 @@ if __name__ == "__main__":
     pq.dequeue()
     pq.dequeue()
     pq.print_q()
+
+    pq.dequeue()
+    pq.dequeue()
+    pq.print_q()
+    pq.dequeue()

@@ -41,12 +41,14 @@ if __name__ == "__main__":
     dq.popleft()
     print(dq)
 
+    print("***************")
     dq.insert(2, 10)
     dq.insert(10, 11)
     print(dq)
 
     dq.insert(-1, 12)
     print(dq)
+    print("***************")
 
     dq.remove(1)
     print(dq)

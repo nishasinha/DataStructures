@@ -43,7 +43,7 @@ an array where index is hashed value of keys, data is kept as pointer at given i
 Since hashing maps keys to smaller index, it might happen that a new key may map to an already used index, called
 collision.
 To solve:
-1.Chaining - one index maps linked list of values.
+1. Chaining - one index maps linked list of values.
 2. Open Addressing - all data in one table only, if the first index is occupied look for next address in row.
 
 

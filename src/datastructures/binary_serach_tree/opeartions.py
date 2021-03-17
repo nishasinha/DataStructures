@@ -60,6 +60,29 @@ class BST:
         BST.post_order(root.right)
         print(root.data, end=" ")
 
+    @staticmethod
+    # Delete key and return 'new' root
+    def delete(root, key):
+        # base case
+        if root is None:
+            return root
+
+        if key < root.data:
+            root.left = BST.delete(root.left, key)
+
+        elif key > root.data:
+            root.right = BST.delete(root.right, key)
+
+        # if this is the node to delete
+        return root
+
+
+
+    @staticmethod
+    def _delete(root):
+        if not root.left and not root.right:
+            print("Node with no children")
+
 
 if __name__ == '__main__':
     print("Binary Search Tree")
@@ -87,3 +110,16 @@ if __name__ == '__main__':
 
     print("\nPost order")
     BST.post_order(r)
+
+    print("\nIn order")
+    BST.in_order(r)
+
+    """
+            (1,4,7)         10          (11,12)
+                1                    11   
+                    4           12
+                        7
+    """
+
+
+    BST.delete(7)
