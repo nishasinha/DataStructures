@@ -17,7 +17,7 @@ For balanced BST, that is the difference in the height of left and right subtree
 
 1. Insert - O(Log n)
 Start from root, if element is at root, return root.
-If element > rot, go right,
+If element > root, go right,
 else go left.
 Insert at leaf!
 

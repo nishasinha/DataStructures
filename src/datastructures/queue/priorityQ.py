@@ -2,7 +2,7 @@
 Priority Queues are used to operate the FIFO with given priority.
 - Every item has a priority.
 - At dequeue, item with highest priority is removed.
-    If many elements have same priority, FIFo is followed.
+    If many elements have same priority, FIFO is followed.
 
 * Operations:
 1. insert(item, priority) - O(1)

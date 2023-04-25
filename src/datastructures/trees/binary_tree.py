@@ -3,9 +3,46 @@ Insertion in a Binary Tree in level order.
 - Given a binary tree and a key, insert the key into the binary tree at the first position available in level order.
 
 
+1. If root is empty, insert at root. RETURN.
+2. Else:
+q = deque()
+q.append(root)
+
+while len(q):
+    temp = q.popleft()
+
+    if temp.left is empty,
+        insert at temp.left, RETURN
+    else q.append(temp.left)
+
+    if temp.right is empty,
+        insert at temp.right, RETURN
+    else q.append(temp.right)
+
+
 Deletion in a Binary Tree
 - Given a binary tree, delete a node from it by making sure that tree shrinks from the bottom
 (i.e. the deleted node is replaced by bottom most and rightmost node).
+
+1. If root is empty, RETURN
+2. Else:
+q = deque()
+q.append(root)
+node_to_delete = None
+last_node = root
+
+while len(q):
+    temp = q.popleft()
+
+    if temp.data == data:
+        node_to_delete = temp
+
+    if temp.left:
+        q.append(temp.left)
+    if temp.right:
+        q.append(temp.right)
+
+    last_node = temp
 """
 
 from collections import deque
@@ -32,7 +69,6 @@ class BinaryTree:
         q.append(self.root)
         while len(q):
             temp = q.popleft()
-
             if not temp.left:
                 temp.left = new_node
                 return

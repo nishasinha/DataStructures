@@ -64,6 +64,7 @@ if __name__ == "__main__":
     dq.extendleft([-11, -12, -13])
     print(dq)
 
+    print("**** Rotate ***********")
     dq.rotate(5)
     print(dq)
 

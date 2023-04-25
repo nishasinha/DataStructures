@@ -10,7 +10,7 @@ Linked List
 
 * advantages:
 - dynamic insertion and deletion allowed
-Memory is assigned at compile time in array while in inked list it is assigned at run time
+Memory is assigned at compile time in array while in linked list it is assigned at run time
 - only the required space is taken.
 
 * disadvantage:
